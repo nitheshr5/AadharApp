@@ -50,6 +50,9 @@ Used for reliable, scalable, persistent storage.
 ✔ **SQL Injection Protection**  
 JPA uses prepared statements internally → 100% safe.
 
+✔ **Continuous Integration**  
+GitHub Actions workflow for automated builds on every push.
+
 ---
 
 ## 📁 3. Project Structure
@@ -78,6 +81,7 @@ This is a clean 3-layer architecture: **Controller → Service → Repository**
 - PostgreSQL
 - Lombok
 - Jakarta Validation
+- GitHub Actions (CI/CD)
 
 ---
 
@@ -130,7 +134,61 @@ http://localhost:8080
 
 ---
 
-## 🔗 7. API Endpoints
+## 🔄 7. Continuous Integration (CI)
+
+This project uses **GitHub Actions** for automated builds on every push and pull request to the `main` branch.
+
+### CI Workflow
+
+The CI pipeline automatically:
+- Checks out the code
+- Sets up JDK 17
+- Builds the project with Maven (skipping tests)
+
+### Workflow File
+
+Create `.github/workflows/ci.yml`:
+
+```yaml
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven (skip tests)
+        run: mvn -B clean install -DskipTests
+```
+
+### CI Badge (Optional)
+
+Add this to the top of your README to show build status:
+
+```markdown
+![Java CI](https://github.com/YOUR_USERNAME/YOUR_REPO/workflows/Java%20CI/badge.svg)
+```
+
+Replace `YOUR_USERNAME` and `YOUR_REPO` with your actual GitHub username and repository name.
+
+---
+
+## 🔗 8. API Endpoints
 
 ### 1️⃣ Create User
 
@@ -182,7 +240,7 @@ GET http://localhost:8080/api/users?page=0&size=5&sortBy=email&direction=asc
 
 ---
 
-## 📝 8. Database ER Diagram
+## 📝 9. Database ER Diagram
 
 The system currently contains a single entity representing Aadhaar applicant details.
 
@@ -227,7 +285,7 @@ CREATE TABLE users (
 
 ---
 
-## 🔒 9. Security & Data Integrity
+## 🔒 10. Security & Data Integrity
 
 ✔ Unique email enforced  
 ✔ Input validated before saving  
@@ -237,7 +295,7 @@ CREATE TABLE users (
 
 ---
 
-## 📘 10. Future Enhancements
+## 📘 11. Future Enhancements
 
 This backend is designed to be extended with:
 
@@ -249,7 +307,7 @@ This backend is designed to be extended with:
 
 ---
 
-## 👨‍💻 11. Author
+## 👨‍💻 12. Author
 
 **Nithesh Ramesh**
 
