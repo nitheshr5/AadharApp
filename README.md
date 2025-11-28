@@ -182,7 +182,37 @@ GET http://localhost:8080/api/users?page=0&size=5&sortBy=email&direction=asc
 
 ---
 
-## 📝 8. SQL Schema (Used by JPA)
+## 📝 8. Database ER Diagram
+
+The system currently contains a single entity representing Aadhaar applicant details.
+
+### ER Diagram
+
+```
++-----------------------------+
+|           USERS             |
++-----------------------------+
+| id (PK)                     |
+| full_name                   |
+| email (UNIQUE)              |
+| phone                       |
+| address                     |
+| created_at (optional)       |
++-----------------------------+
+```
+
+### Field Explanation
+
+- **id** → Auto-increment primary key
+- **full_name** → Applicant's name
+- **email** → Unique identifier to avoid duplicate users
+- **phone** → Contact number
+- **address** → Residential address
+- **created_at** → Timestamp of record creation (optional if using Flyway or triggers)
+
+This ERD reflects the current scope of the assignment and can easily be extended with more tables (e.g., documents, verification status, Aadhaar request stage) in future phases.
+
+### SQL Schema (Used by JPA)
 
 ```sql
 CREATE TABLE users (
